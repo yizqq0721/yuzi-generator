@@ -9,7 +9,11 @@ import java.io.IOException;
 
 public class MainGenerator {
     public static void main(String[] args) throws TemplateException, IOException {
+        MainTemplateConfig mainTemplateConfig = new MainTemplateConfig();
+        doGenerate(mainTemplateConfig);
+    }
 
+    public static void doGenerate(Object model) throws IOException, TemplateException {
         //静态文件生成
         String projectPath = System.getProperty("user.dir");
         // 输入路径
@@ -24,11 +28,9 @@ public class MainGenerator {
                 "src/main/resources/templates/MainTemplate.java.ftl";
         String dynamicOutputPath = projectPath + File.separator + "acm-template/src/com/yupi/acm/MainTemplate.java";
 
-        MainTemplateConfig mainTemplateConfig = new MainTemplateConfig();
-        mainTemplateConfig.setAuthor("yupi");
-        mainTemplateConfig.setLoop(false);
-        mainTemplateConfig.setOutputText("求和结果：");
 
-        DynamicGenerator.doGenerate(dynamicInputPath, dynamicOutputPath, mainTemplateConfig);
+        DynamicGenerator.doGenerate(dynamicInputPath, dynamicOutputPath, model);
+
     }
+
 }
